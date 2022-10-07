@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<th:block th:replace="base/head :: head_base(
+title='Inicio',
+links=_,
+scripts=_,
+metadata=_)">
+
+</th:block>
+
+<th:block th:replace="base/body :: body_base(~{::div})">
+    <div class="col-md-9 py-5 main-content">
+        <h1 class="fw-bold">Documentos Emilima</h1>
+        <img alt="Documents animation"
+             th:src="@{/img/banner.png}"
+             class="w-100">
+    </div>
+</th:block>
+</html>

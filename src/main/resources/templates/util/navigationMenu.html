@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<div class="d-flex flex-column flex-shrink-0 p-3 text-dark bg-white shadow-sm h-100 col-md-3"
+     th:fragment="navigation_menu(activated_link)">
+    <a th:href="@{/}"
+       class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <img alt="Emilima logo"
+             th:src="@{/img/logo-emilima-color.png}"
+             class="w-100">
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item"><a
+                th:href="@{/}" class="nav-link active"
+                aria-current="page">
+            <svg class="bi me-2" width="16"
+                 height="16">
+                <use xlink:href="#home"/>
+            </svg>
+            Inicio
+        </a></li>
+        <li><a
+                th:href="@{/documentos/listar}"
+                class="nav-link text-dark">
+            <svg class="bi me-2" width="16"
+                 height="16">
+                <use xlink:href="#speedometer2"/>
+            </svg>
+            Documentos
+        </a></li>
+        <li><a
+                th:href="@{/solicitudes/listar}"
+                class="nav-link text-dark">
+            <svg class="bi me-2" width="16"
+                 height="16">
+                <use xlink:href="#table"/>
+            </svg>
+            Solicitudes
+        </a></li>
+        <li><a
+                th:href="@{/usuarios/listar}"
+                class="nav-link text-dark">
+            <svg class="bi me-2" width="16"
+                 height="16">
+                <use xlink:href="#grid"/>
+            </svg>
+            Usuarios
+        </a></li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+        <button
+                class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
+                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img alt="" width="32" height="32" class="rounded-circle me-2"
+                 id="user-photo"> <strong>wquispe</strong>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow"
+            aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item"
+                   th:href="@{/cuenta}">Configuración</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <button class="dropdown-item" id="logout-button">Salir</button>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

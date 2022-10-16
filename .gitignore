@@ -388,5 +388,6 @@ nbdist/
 # that are supposed to be shared within teams.
 
 target/*
+*-dev.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,eclipse,intellij+all,intellij+iml,netbeans,visualstudiocode,webstorm+all,lighthouseci

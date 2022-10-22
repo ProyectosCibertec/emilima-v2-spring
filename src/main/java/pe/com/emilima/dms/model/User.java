@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class User {
     @Id
     @Column(name = "username", length = 45)
-    @NotNull
     private String username;
     @Column(name = "password", length = 45)
     @NotNull
@@ -27,9 +26,9 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false)
     private UserRole userRole;
     @ManyToOne
-    @JoinColumn(name = "photo_id", nullable = false)
+    @JoinColumn(name = "photo_id")
     private File file;
     @ManyToOne
     @JoinColumn(name = "position_id", nullable = false)
-    private UserPosition positionId;
+    private UserPosition userPosition;
 }

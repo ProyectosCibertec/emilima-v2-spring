@@ -20,7 +20,6 @@ public class UserPosition {
     @NotNull
     private BigInteger id;
     @Column(name = "name", length = 200)
-    @NotNull
     private String name;
     @ManyToOne
     @JoinColumn(name = "organic_unit_id", nullable = false)

@@ -20,7 +20,6 @@ public class UserRole {
     @NotNull
     private BigInteger id;
     @Column(name = "name", length = 45)
-    @NotNull
     private String name;
     @Column(name = "description")
     private String description;

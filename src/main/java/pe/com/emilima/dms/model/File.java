@@ -16,7 +16,6 @@ public class File {
     @Id
     @Column(name = "id", length = 48)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private String id;
     @Column(name = "filename")
     @NotNull

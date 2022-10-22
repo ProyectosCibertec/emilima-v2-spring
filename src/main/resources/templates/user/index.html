@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<th:block th:replace="base/head :: head_base(
+title='Usuarios',
+links=_,
+scripts=~{::script},
+metadata=_)">
+    <script type="text/javascript" th:src="@{/js/user/scripts.js}"></script>
+</th:block>
+
+<th:block th:replace="base/body :: body_base(~{::div})">
+    <div class="col-md-9 py-5 main-content h-100">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="fw-bold">Usuarios</h1>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#userModal">Registrar usuario</button>
+        </div>
+        <form class="my-4">
+            <div>
+                <input type="text" class="form-control w-100"
+                    id="search-request-name" placeholder="Buscar solicitudes">
+            </div>
+        </form>
+        <table class="table users-table">
+            <thead>
+            <tr>
+                <th scope="col">Nombre de usuario</th>
+                <th scope="col">Email</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Posición</th>
+                <th scope="col">Operaciones</th>
+            </tr>
+            </thead>
+            <tbody id="users-table__body">
+    
+            </tbody>
+        </table>
+        <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="userForm">
+                            <div class="mb-3">
+                                <label for="user-name" class="form-label">Nombre de usuario</label> 
+                                <input type="text" class="form-control" id="user-name" name="user-name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="user-password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="user-password" name="user-password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="user-email" class="form-label">Email</label> 
+                                <input type="email" class="form-control" name="user-email" id="user-email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="user-role">Rol</label> 
+                                <select class="form-select" name="user-role" id="user-role" required>
+                                    <option value="" disabled selected hidden>[Elige un rol]</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="user-position">Posición</label> 
+                                <select class="form-select" name="user-position" id="user-position" required>
+                                    <option value="" disabled selected hidden>[Elige una posición]</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary save-button" id="save-button">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

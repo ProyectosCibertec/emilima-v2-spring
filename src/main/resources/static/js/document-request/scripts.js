@@ -222,17 +222,17 @@ function index() {
     fillUserRolesCombobox();
     fillUserPositionsCombobox();
 
-    userForm.validate({
+    /*userForm.validate({
         messages: {
-            "user-name": {
+            username: {
                 required: "Por favor, pon un nombre de usuario",
                 minlength: "Digita como mínimo 3 caracteres",
                 maxlength: "Digita como máximo 30 caracteres"
             },
-            "user-password": {
+            password: {
                 required: "Por favor, pon una contraseña"
             },
-            "user-email": {
+            email: {
                 required: "Por favor, pon un email",
                 min: "La cantidad mínima es 1",
                 max: "La cantidad máxima es 10"
@@ -240,11 +240,8 @@ function index() {
             "user-role": {
                 required: "Por favor, elige un rol"
             },
-            "user-position": {
-                required: "Por favor, pon una posición"
-            }
         }
-    });
+    });*/
 
 	$("#search-user-name").keyup(function() {
 		searchUsersInView();

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<th:block th:replace="base/head :: head_base(
+title='Usuarios',
+links=_,
+scripts=~{::script},
+metadata=_)">
+    <script type="text/javascript" th:src="@{/js/document-request/scripts.js}"></script>
+</th:block>
+
+<th:block th:replace="base/body :: body_base(~{::div})">
+    <div class="col-md-9 py-5 main-content h-100">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="fw-bold">Solicitudes de Documentos</h1>
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#documentRequestModal">Registrar solicitud</button>
+        </div>
+        <form class="my-4">
+            <div>
+                <input type="text" class="form-control w-100"
+                       id="search-document-request-name" placeholder="Buscar solicitudes">
+            </div>
+        </form>
+        <table class="table document-requests-table">
+            <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Fecha de creación</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Operaciones</th>
+            </tr>
+            </thead>
+            <tbody id="document-requests-table__body">
+            </tbody>
+        </table>
+        <div class="modal fade" id="documentRequestModal" tabindex="-1" aria-labelledby="documentRequestModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="documentRequestForm">
+                            <div class="mb-3">
+                                <label for="edit-request-name" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="edit-request-name" name="request-name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edit-request-description" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="edit-request-description" rows="3" name="request-description" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edit-request-creation-date" class="form-label">Fecha de creación</label>
+                                <input type="date" class="form-control" name="request-creation-date" id="edit-request-creation-date" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edit-request-user">Usuario que registra la solicitud</label>
+                                <input type="text" class="form-control" name="request-user" id="edit-request-user" readonly required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edit-request-document">Documento</label>
+                                <select class="form-control" name="request-document" id="edit-request-document" required>
+                                <option value="" disabled selected hidden>[Elige un documento]</option>
+                            </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary save-button" id="save-button">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

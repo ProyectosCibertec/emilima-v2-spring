@@ -17,21 +17,20 @@ metadata=_)">
         <form class="my-4">
             <div>
                 <input type="text" class="form-control w-100"
-                    id="search-request-name" placeholder="Buscar solicitudes">
+                    id="search-user-name" placeholder="Buscar usuarios">
             </div>
         </form>
         <table class="table users-table">
             <thead>
-            <tr>
-                <th scope="col">Nombre de usuario</th>
-                <th scope="col">Email</th>
-                <th scope="col">Rol</th>
-                <th scope="col">Posición</th>
-                <th scope="col">Operaciones</th>
-            </tr>
+                <tr>
+                    <th scope="col">Nombre de usuario</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Posición</th>
+                    <th scope="col">Operaciones</th>
+                </tr>
             </thead>
             <tbody id="users-table__body">
-    
             </tbody>
         </table>
         <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModal" aria-hidden="true">
@@ -58,13 +57,13 @@ metadata=_)">
                             <div class="mb-3">
                                 <label for="user-role">Rol</label> 
                                 <select class="form-select" name="user-role" id="user-role" required>
-                                    <option value="" disabled selected hidden>[Elige un rol]</option>
+                                    <option disabled selected>Elige un rol</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="user-position">Posición</label> 
                                 <select class="form-select" name="user-position" id="user-position" required>
-                                    <option value="" disabled selected hidden>[Elige una posición]</option>
+                                    <option disabled selected>Elige una posición</option>
                                 </select>
                             </div>
                         </form>

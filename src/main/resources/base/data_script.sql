@@ -56,3 +56,7 @@ SELECT * FROM `user_role`;
 INSERT INTO `user`(`username`, `password`, `email`, `role_id`, `position_id`) VALUES ("admin", "admin", "admin@emilima.com.pe", 1, 1);
 INSERT INTO `user`(`username`, `password`, `email`, `role_id`, `position_id`) VALUES ("admin1", "admin", "admin@emilima.com.pe", 1, 1);
 INSERT INTO `user`(`username`, `password`, `email`, `role_id`, `position_id`) VALUES ("user", "admin", "admin@emilima.com.pe", 1, 1);
+
+INSERT INTO `document_request`(`name`, `description`, `creation_date`, `state_id`, `user_id`, `organic_unit_id`) VALUES ("Solicitud 1", "Descripción de la solicitud 1", "2000-11-11", 1, "admin", 1);
+INSERT INTO `document_request`(`name`, `description`, `creation_date`, `state_id`, `user_id`, `organic_unit_id`) VALUES ("Solicitud 2", "Descripción de la solicitud 2", "2000-11-11", 1, "admin", 1);
+INSERT INTO `document_request`(`name`, `description`, `creation_date`, `state_id`, `user_id`, `organic_unit_id`) VALUES ("Solicitud 3", "Descripción de la solicitud 3", "2000-11-11", 1, "admin", 1);

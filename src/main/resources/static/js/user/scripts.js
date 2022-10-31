@@ -124,8 +124,10 @@ function mapUserInTableRow(user) {
                     <td scope="col">${user.userRole.name}</td>
                     <td scope="col">${user.userPosition.name}</td>
                     <td scope="col">
-                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="editUserFromList('${user.username}')" data-bs-toggle="modal" data-bs-target="#userModal">Editar</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteUserFromList('${user.username}')">Eliminar</button>
+                        <div class="d-flex justify-content-center align-items-center gap-2">
+                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="editUserFromList('${user.username}')" data-bs-toggle="modal" data-bs-target="#userModal">Editar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteUserFromList('${user.username}')">Eliminar</button>
+                        </div>
                     </td>
                 </tr>
                 `;

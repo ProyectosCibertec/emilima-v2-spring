@@ -1,6 +1,5 @@
 package pe.com.emilima.dms.model;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +16,6 @@ public class UserPosition {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private BigInteger id;
     @Column(name = "name", length = 200)
     private String name;

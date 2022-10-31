@@ -1,6 +1,5 @@
 package pe.com.emilima.dms.model;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,10 +17,8 @@ public class Document {
     @Id
     @Column(name = "serial_number")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private BigInteger serialNumber;
     @Column(name = "name", length = 45)
-    @NotNull
     private String name;
     @Column(name = "description")
     private String description;

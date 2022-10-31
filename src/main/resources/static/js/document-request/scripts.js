@@ -30,42 +30,52 @@ function showSuccessAlert(message) {
     }, 3000);
 }
 
-function getUsers() {
-    let out = $.ajax({ method: "GET", url: `${URL}/api/user/` });
+function getDocumentRequests() {
+    let out = $.ajax({ method: "GET", url: `${URL}/api/document-request/` });
 
     return out;
 }
 
-function getUser(id) {
-    let out = $.ajax({ method: "GET", url: `${URL}/api/user/${id}` });
+function getDocumentRequest(id) {
+    let out = $.ajax({ method: "GET", url: `${URL}/api/document-request/${id}` });
 
     return out;
 }
 
-function getUserRoles() {
-    let out = $.ajax({ method: "GET", url: `${URL}/api/user-role/` });
+function getRequestStates() {
+    let out = $.ajax({ method: "GET", url: `${URL}/api/request-state/` });
 
     return out;
 }
 
-function getUserPositions() {
-    let out = $.ajax({ method: "GET", url: `${URL}/api/user-position/` });
+function getUser(username) {
+    let out = $.ajax({ method: "GET", url: `${URL}/api/user/${username}` });
 
     return out;
 }
 
-function postUser(user) {
+function getOrganicUnits() {
+    let out = $.ajax({ method: "GET", url: `${URL}/api/organic-unit/` });
+
+    return out;
+}
+
+function postDocumentRequest(documentRequest) {
     let out = $.ajax({
-        method: "POST", url: `${URL}/api/user/`, data: JSON.stringify({
-            username: user.username,
-            password: user.password,
-            email: user.email,
-            userRole: {
-                id: user.userRole.id,
+        method: "POST", url: `${URL}/api/document-request/`, data: JSON.stringify({
+            id: documentRequest.id,
+            name: documentRequest.name,
+            description: documentRequest.description,
+            creationDate: documentRequest.creationDate,
+            requestState: {
+                id: documentRequest.requestState.id,
                 name: null
             },
-            userPosition: {
-                id: user.userPosition.id,
+            user: {
+                username: documentRequest.user.username
+            },
+            organicUnit: {
+                id: documentRequest.organicUnit.id,
                 name: null
             }
         }),
@@ -81,158 +91,165 @@ function postUser(user) {
     return out;
 }
 
-function deleteUser(id) {
-    let out = $.ajax({ method: "DELETE", url: `${URL}/api/user/${id}` });
+function deleteDocumentRequest(id) {
+    let out = $.ajax({ method: "DELETE", url: `${URL}/api/document-request/${id}` });
 
     return out;
 }
 
-function addUserIdToUrl(id) {
+function addDocumentRequestIdToUrl(id) {
     history.pushState({}, '', location.pathname.concat(id));
 }
 
-function removeUserIdToUrl() {
+function removeDocumentRequestIdToUrl() {
     history.pushState({}, '', location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1));
 }
 
-async function saveUser() {
+async function saveDocumentRequest() {
     let id = location.pathname.substring(location.pathname.lastIndexOf("/") + 1, location.pathname.length);
 
-    let user = {
-        username: id == '' ? $("#user-name").val() : id,
-        password: $("#user-password").val(),
-        email: $("#user-email").val(),
-        userRole: {
-            id: parseInt($("#user-role").val(), 10),
-            name: null
+    let documentRequest = {
+        id: id == '' ? null : id,
+        name: $("#request-name").val(),
+        description: $("#request-description").val(),
+        creationDate: $("#request-creation-date").val(),
+        requestState: {
+            id: parseInt($("#request-state").val())
         },
-        userPosition: {
-            id: parseInt($("#user-position").val(), 10),
-            name: null
+        user: {
+            username: $("#request-user").val()
+        },
+        organicUnit: {
+            id: parseInt($("#request-organic-unit").val())
         }
     };
 
-    let out = await postUser(user);
+    let out = await postDocumentRequest(documentRequest);
 
-    fillUsersTable();
+    fillDocumentRequestsTable();
 }
 
-function mapUserInTableRow(user) {
-    return `<tr class="users-table__body__item">
-                    <td scope="col">${user.username}</td>
-                    <td scope="col">${user.email}</td>
-                    <td scope="col">${user.userRole.name}</td>
-                    <td scope="col">${user.userPosition.name}</td>
+function mapUserInTableRow(documentRequest) {
+    return `<tr class="document-requests-table__body__item">
+                    <td scope="col">${documentRequest.name}</td>
+                    <td scope="col">${documentRequest.description}</td>
+                    <td scope="col">${documentRequest.creationDate}</td>
+                    <td scope="col">${documentRequest.requestState.name}</td>
+                    <td scope="col">${documentRequest.user.username}</td>
+                    <td scope="col">${documentRequest.organicUnit.name}</td>
                     <td scope="col">
-                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="editUserFromList('${user.username}')" data-bs-toggle="modal" data-bs-target="#userModal">Editar</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteUserFromList('${user.username}')">Eliminar</button>
+                        <div class="d-flex justify-content-center align-items-center gap-2">
+                            <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="editDocumentRequestFromList('${documentRequest.id}')" data-bs-toggle="modal" data-bs-target="#documentRequestModal">Editar</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteDocumentRequestFromList('${documentRequest.id}')">Eliminar</button>
+                        </div>
                     </td>
                 </tr>
                 `;
 }
 
-function mapUserRoleInCombobox(userRole) {
-    return `<option value=${userRole.id}>${userRole.name}</option>`;
+function mapRequestStateInCombobox(requestState) {
+    return `<option value=${requestState.id}>${requestState.name}</option>`;
 }
 
-function mapUserPositionInCombobox(userPosition) {
-    return `<option value=${userPosition.id}>${userPosition.name}</option>`;
+function mapOrganicUnitInCombobox(organicUnit) {
+    return `<option value=${organicUnit.id}>${organicUnit.name}</option>`;
 }
 
-async function fillUserForm(id) {
-    let user = await getUser(id);
+async function fillDocumentRequestForm(id) {
+    let documentRequest = await getDocumentRequest(id);
 
-    $("#user-name").val(user.username);
-    $("#user-password").val(user.password);
-    $("#user-email").val(user.email);
-    $("#user-role").val(user.userRole.id);
-    $("#user-position").val(user.userPosition.id);
+    let creationDate = documentRequest.creationDate.split('T')[0];
+
+    $("#request-name").val(documentRequest.name);
+    $("#request-description").val(documentRequest.description);
+    $("#request-creation-date").val(creationDate);
+    $("#request-state").val(documentRequest.requestState.id);
+    $("#request-user").val(documentRequest.user.username);
+    $("#request-organic-unit").val(documentRequest.organicUnit.id);
 }
 
-async function editUserFromList(id) {
-    addUserIdToUrl(id);
-    fillUserForm(id);
+async function editDocumentRequestFromList(id) {
+    addDocumentRequestIdToUrl(id);
+    fillDocumentRequestForm(id);
 }
 
-async function deleteUserFromList(id) {
-    let out = await deleteUser(id);
+async function deleteDocumentRequestFromList(id) {
+    let out = await deleteDocumentRequest(id);
 
-    fillUsersTable();
+    fillDocumentRequestsTable();
 }
 
-async function fillUsersTable() {
-    const usersTableBody = $("#users-table__body");
+async function fillDocumentRequestsTable() {
+    const documentRequestsTableBody = $("#document-requests-table__body");
 
-    usersTableBody.empty();
+    documentRequestsTableBody.empty();
 
-    let users = await getUsers();
+    let documentRequests = await getDocumentRequests();
 
-    users.forEach(user => {
-        usersTableBody.append(mapUserInTableRow(user));
+    documentRequests.forEach(documentRequest => {
+        documentRequestsTableBody.append(mapUserInTableRow(documentRequest));
     })
 }
 
-async function fillUserRolesCombobox() {
-    const userRolesCombobox = $("#user-role");
+async function fillRequestStatesCombobox() {
+    const requestStatesCombobox = $("#request-state");
 
-    let userRoles = await getUserRoles();
+    let requestStates = await getRequestStates();
 
-    userRoles.forEach(userRole => {
-        userRolesCombobox.append(mapUserRoleInCombobox(userRole));
+    requestStates.forEach(requestState => {
+        requestStatesCombobox.append(mapRequestStateInCombobox(requestState));
     });
 }
 
-async function fillUserPositionsCombobox() {
-    const userPositionsCombobox = $("#user-position");
+async function fillOrganicUnitsCombobox() {
+    const organicUnitsCombobox = $("#request-organic-unit");
 
-    let userPositions = await getUserPositions();
+    let organicUnits = await getOrganicUnits();
 
-    userPositions.forEach(userRole => {
-        userPositionsCombobox.append(mapUserPositionInCombobox(userRole));
+    organicUnits.forEach(organicUnit => {
+        organicUnitsCombobox.append(mapOrganicUnitInCombobox(organicUnit));
     });
 }
 
-function emptyUserForm() {
-    $("#user-name").val(null);
-    $("#user-password").val(null);
-    $("#user-email").val(null);
-    $("#user-role").val(null);
-    $("#user-position").val(null);
+function emptyDocumentRequestForm() {
+    let documentRequestForm = $("#documentRequestForm")[0];
+
+    documentRequestForm.reset();
 }
 
-function closeUserModal() {
-    $("#userModal").modal("hide");
+function closeDocumentRequestModal() {
+    $("#documentRequestModal").modal("hide");
 }
 
-function searchUsersInView() {
-		$(".users-table__body__item").filter(
+function searchRequestsInView() {
+		$(".document-requests-table__body__item").filter(
     		function() {
     			$(this).toggle(
     				$(this).children("td").eq(0).text()
-    					.includes($("#search-user-name").val()));
+    					.includes($("#search-document-request-name").val()));
     		}
     	)
 }
 
 function index() {
     let saveButton = $("#save-button");
-    let userForm = $("#userForm");
+    let documentRequestForm = $("#documentRequestForm");
 
-    fillUsersTable();
-    fillUserRolesCombobox();
-    fillUserPositionsCombobox();
+    fillDocumentRequestsTable();
+    fillRequestStatesCombobox();
+    fillOrganicUnitsCombobox();
 
-    /*userForm.validate({
+    /*documentRequestForm.validate({
         messages: {
-            username: {
+            "user-name": {
                 required: "Por favor, pon un nombre de usuario",
                 minlength: "Digita como mínimo 3 caracteres",
                 maxlength: "Digita como máximo 30 caracteres"
             },
-            password: {
+            "user-password": {
                 required: "Por favor, pon una contraseña"
             },
-            email: {
+            "user-email": {
                 required: "Por favor, pon un email",
                 min: "La cantidad mínima es 1",
                 max: "La cantidad máxima es 10"
@@ -240,28 +257,31 @@ function index() {
             "user-role": {
                 required: "Por favor, elige un rol"
             },
+            "user-position": {
+                required: "Por favor, pon una posición"
+            }
         }
     });*/
 
-	$("#search-user-name").keyup(function() {
-		searchUsersInView();
+	$("#search-document-request-name").keyup(function() {
+		searchRequestsInView();
 	});
 
     saveButton.on("click", e => {
-        if (userForm.valid()) {
-            saveUser();
-            emptyUserForm();
-            closeUserModal();
+        if (documentRequestForm.valid()) {
+            saveDocumentRequest();
+            emptyDocumentRequestForm();
+            closeDocumentRequestModal();
         }
     });
 
-    $("#userModal").on("show.bs.modal", (e) => {
-        emptyUserForm();
-    })
+    $("#documentRequestModal").on("show.bs.modal", (e) => {
+        emptyDocumentRequestForm();
+    });
 
-    $("#userModal").on("hidden.bs.modal", (e) => {
-        removeUserIdToUrl();
-    })
+    $("#documentRequestModal").on("hidden.bs.modal", (e) => {
+        removeDocumentRequestIdToUrl();
+    });
 }
 
 $(document).ready(function () {

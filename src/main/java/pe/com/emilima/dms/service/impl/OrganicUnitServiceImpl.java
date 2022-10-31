@@ -1,6 +1,7 @@
 package pe.com.emilima.dms.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pe.com.emilima.dms.model.OrganicUnit;
 import pe.com.emilima.dms.repository.OrganicUnitRepository;
 import pe.com.emilima.dms.service.OrganicUnitService;
@@ -9,6 +10,7 @@ import java.math.BigInteger;
 import java.util.Objects;
 import java.util.Optional;
 
+@Service
 public class OrganicUnitServiceImpl implements OrganicUnitService {
     @Autowired
     private OrganicUnitRepository organicUnitRepository;

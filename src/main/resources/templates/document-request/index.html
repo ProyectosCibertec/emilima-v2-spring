@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <th:block th:replace="base/head :: head_base(
-title='Usuarios',
+title='Solicitudes de Documentos',
 links=_,
 scripts=~{::script},
 metadata=_)">
@@ -27,6 +27,8 @@ metadata=_)">
                 <th scope="col">Descripción</th>
                 <th scope="col">Fecha de creación</th>
                 <th scope="col">Estado</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Unidad Orgánica</th>
                 <th scope="col">Operaciones</th>
             </tr>
             </thead>
@@ -43,26 +45,32 @@ metadata=_)">
                     <div class="modal-body">
                         <form id="documentRequestForm">
                             <div class="mb-3">
-                                <label for="edit-request-name" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="edit-request-name" name="request-name" required>
+                                <label for="request-name" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="request-name" name="request-name" required>
                             </div>
                             <div class="mb-3">
-                                <label for="edit-request-description" class="form-label">Descripción</label>
-                                <textarea class="form-control" id="edit-request-description" rows="3" name="request-description" required></textarea>
+                                <label for="request-description" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="request-description" rows="3" name="request-description" required></textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="edit-request-creation-date" class="form-label">Fecha de creación</label>
-                                <input type="date" class="form-control" name="request-creation-date" id="edit-request-creation-date" readonly>
+                                <label for="request-creation-date" class="form-label">Fecha de creación</label>
+                                <input type="date" class="form-control" name="request-creation-date" id="request-creation-date" readonly>
                             </div>
                             <div class="mb-3">
-                                <label for="edit-request-user">Usuario que registra la solicitud</label>
-                                <input type="text" class="form-control" name="request-user" id="edit-request-user" readonly required>
+                                <label for="request-state">Estado de la solicitud</label>
+                                <select class="form-control" name="request-state" id="request-state" required>
+                                    <option disabled selected>[Elige un estado]</option>
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label for="edit-request-document">Documento</label>
-                                <select class="form-control" name="request-document" id="edit-request-document" required>
-                                <option value="" disabled selected hidden>[Elige un documento]</option>
-                            </select>
+                                <label for="request-user">Usuario</label>
+                                <input type="text" class="form-control" name="request-user" id="request-user" value="admin" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="request-organic-unit">Unidad orgánica</label>
+                                <select class="form-control" name="request-organic-unit" id="request-organic-unit" required>
+                                    <option disabled selected>[Elige una unidad orgánica]</option>
+                                </select>
                             </div>
                         </form>
                     </div>

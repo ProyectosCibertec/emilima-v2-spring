@@ -1,6 +1,5 @@
 package pe.com.emilima.dms.model;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +17,5 @@ public class File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @Column(name = "filename")
-    @NotNull
     private String filename;
 }

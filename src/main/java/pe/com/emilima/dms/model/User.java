@@ -1,6 +1,5 @@
 package pe.com.emilima.dms.model;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,10 +16,8 @@ public class User {
     @Column(name = "username", length = 45)
     private String username;
     @Column(name = "password", length = 45)
-    @NotNull
     private String password;
     @Column(name = "email", length = 100)
-    @NotNull
     private String email;
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)

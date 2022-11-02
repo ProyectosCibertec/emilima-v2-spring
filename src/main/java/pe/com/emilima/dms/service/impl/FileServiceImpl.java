@@ -1,6 +1,7 @@
 package pe.com.emilima.dms.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import pe.com.emilima.dms.model.File;
 import pe.com.emilima.dms.repository.FileRepository;
@@ -9,6 +10,7 @@ import pe.com.emilima.dms.service.FileService;
 import java.util.Objects;
 import java.util.Optional;
 
+@Service
 public class FileServiceImpl implements FileService {
     @Autowired
     private FileRepository fileRepository;

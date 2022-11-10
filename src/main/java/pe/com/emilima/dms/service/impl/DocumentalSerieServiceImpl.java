@@ -25,7 +25,7 @@ public class DocumentalSerieServiceImpl implements DocumentalSerieService {
 
     @Override
     public Optional<DocumentalSerie> findById(String id) {
-        if (StringUtils.hasText(id))
+        if (!StringUtils.hasText(id))
             return Optional.empty();
 
         return documentalSerieRepository.findById(id);

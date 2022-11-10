@@ -36,8 +36,8 @@ function getDocumentalSeries() {
     return out;
 }
 
-function getDocumentRequest(id) {
-    let out = $.ajax({ method: "GET", url: `${URL}/api/document-request/${id}` });
+function getDocumentalSerie(id) {
+    let out = $.ajax({ method: "GET", url: `${URL}/api/documental-serie/${id}` });
 
     return out;
 }
@@ -173,16 +173,23 @@ function mapOrganicUnitInCombobox(organicUnit) {
 }
 
 async function filldocumentalSerieForm(id) {
-    let documentalSerie = await getDocumentRequest(id);
+    let documentalSerie = await getDocumentalSerie(id);
 
-    let creationDate = documentalSerie.creationDate.split('T')[0];
+    let elaborationDate = documentalSerie.elaborationDate.split('T')[0];
 
-    $("#request-name").val(documentalSerie.name);
-    $("#request-description").val(documentalSerie.description);
-    $("#request-creation-date").val(creationDate);
-    $("#request-state").val(documentalSerie.requestState.id);
-    $("#request-user").val(documentalSerie.user.username);
-    $("#request-organic-unit").val(documentalSerie.organicUnit.id);
+    $("#documental-serie-code").val(documentalSerie.code);
+    $("#documental-serie-name").val(documentalSerie.name);
+    $("#documental-serie-hierarchical-dependency").val(documentalSerie.hierarchicalDependency.id);
+    $("#documental-serie-organic-unit").val(documentalSerie.organicUnit.id);
+    $("#documental-serie-definition").val(documentalSerie.definition);
+    $("#documental-serie-service-frequency").val(documentalSerie.serviceFrequency);
+    $("#documental-serie-normative-scope").val(documentalSerie.normativeScope);
+    $("#documental-serie-is-public").val(documentalSerie.isPublic == true ? "on" : "");
+    $("#documental-serie-phisical-features").val(documentalSerie.phisicalFeatures);
+    $("#documental-serie-value").val(documentalSerie.documentalSerieValue);
+    $("#documental-serie-years-in-ma").val(documentalSerie.yearsInManagementArchive);
+    $("#documental-serie-years-in-ca").val(documentalSerie.yearsInCentralArchive);
+    $("#documental-serie-elaboration-date").val(elaborationDate);
 }
 
 async function editDocumentalSerieFromList(id) {

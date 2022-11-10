@@ -4,14 +4,14 @@ body {
 
 .body--login {
 	background-image: linear-gradient(rgba(0, 75, 138, .7) 50%,
-		rgba(0, 75, 138, .7) 50%), url('../img/login-bg.jpg');
+		rgba(0, 75, 138, .7) 50%), url('../../public/img/login-bg.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
 }
 
 .main-content {
 	overflow-y: auto;
-	overflow-x: hidden;
+	overflow-x: auto;
 }
 
 .documents-list__item__edit-button,

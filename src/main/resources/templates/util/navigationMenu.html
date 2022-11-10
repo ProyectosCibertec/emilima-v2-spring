@@ -12,7 +12,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item"><a
-                th:href="@{/}" class="nav-link active"
+                th:href="@{/}" th:class="'nav-link' + ${#request.getServletPath().equals('/') ? ' active' : ''}"
                 aria-current="page">
             <svg class="bi me-2" width="16"
                  height="16">
@@ -21,7 +21,7 @@
             Inicio
         </a></li>
         <li><a
-                th:href="@{/documentos/listar}"
+                th:href="@{/documentos/}" th:class="'nav-link' + ${#request.getServletPath().equals('/documentos/') ? ' active' : ''}"
                 class="nav-link text-dark">
             <svg class="bi me-2" width="16"
                  height="16">
@@ -30,7 +30,16 @@
             Documentos
         </a></li>
         <li><a
-                th:href="@{/solicitudes/listar}"
+                th:href="@{/series-documentales/}" th:class="'nav-link' + ${#request.getServletPath().equals('/series-documentales/') ? ' active' : ''}"
+                class="nav-link text-dark">
+            <svg class="bi me-2" width="16"
+                 height="16">
+                <use xlink:href="#grid"/>
+            </svg>
+            Series documentales
+        </a></li>
+        <li><a
+                th:href="@{/solicitudes/}" th:class="'nav-link' + ${#request.getServletPath().equals('/solicitudes/') ? ' active' : ''}"
                 class="nav-link text-dark">
             <svg class="bi me-2" width="16"
                  height="16">
@@ -39,7 +48,7 @@
             Solicitudes
         </a></li>
         <li><a
-                th:href="@{/usuarios/listar}"
+                th:href="@{/usuarios/}" th:class="'nav-link' + ${#request.getServletPath().equals('/usuarios/') ? ' active' : ''}"
                 class="nav-link text-dark">
             <svg class="bi me-2" width="16"
                  height="16">

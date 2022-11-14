@@ -1,4 +1,4 @@
 package pe.com.emilima.dms.controller.web.account;
 
-public class AccountController {
+public class MvcAccountController {
 }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 <body>
 <div class="d-flex flex-column flex-shrink-0 p-3 text-dark bg-white shadow-sm h-100 col-md-3"
      th:fragment="navigation_menu(activated_link)">
     <a th:href="@{/}"
        class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
         <img alt="Emilima logo"
-             th:src="@{/img/logo-emilima-color.png}"
+             th:src="@{/public/img/logo-emilima-color.png}"
              class="w-100">
     </a>
     <hr>
@@ -63,7 +63,7 @@
                 class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
                 id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img alt="" width="32" height="32" class="rounded-circle me-2"
-                 id="user-photo"> <strong>wquispe</strong>
+                 id="user-photo"> <strong sec:authentication="name">anonymous</strong>
         </button>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow"
             aria-labelledby="dropdownUser1">
@@ -73,7 +73,9 @@
                 <hr class="dropdown-divider">
             </li>
             <li>
-                <button class="dropdown-item" id="logout-button">Salir</button>
+                <form th:action="@{/logout}" method="post">
+                    <button class="dropdown-item" id="logout-button">Salir</button>
+                </form>
             </li>
         </ul>
     </div>

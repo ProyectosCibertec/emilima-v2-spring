@@ -4,12 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import pe.com.emilima.dms.model.Document;
-import pe.com.emilima.dms.model.DocumentRequest;
-import pe.com.emilima.dms.model.DocumentType;
-import pe.com.emilima.dms.model.DocumentalSerie;
+import pe.com.emilima.dms.model.*;
 import pe.com.emilima.dms.service.DocumentService;
+import pe.com.emilima.dms.service.FileService;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +19,8 @@ import java.util.Optional;
 public class ApiDocumentController {
     @Autowired
     private DocumentService documentService;
+    @Autowired
+    private FileService fileService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public Iterable<Document> list() {
@@ -41,26 +42,37 @@ public class ApiDocumentController {
             @RequestPart("documentType") String documentTypeId,
             @RequestPart("documentalSerie") String documentalSerieCode,
             @RequestPart("documentRequest") String documentRequestId,
-            @RequestPart MultipartFile file) {
+            @RequestPart("file") MultipartFile multipartFile) {
         Document document = new Document();
         DocumentType documentType = new DocumentType();
         DocumentalSerie documentalSerie = new DocumentalSerie();
         DocumentRequest documentRequest = new DocumentRequest();
+        File file;
         documentType.setId(new BigInteger(documentTypeId));
         documentalSerie.setCode(documentalSerieCode);
         documentRequest.setId(new BigInteger(documentRequestId));
+
         try {
-            document.setSerialNumber(new BigInteger(serialNumber));
+            document.setSerialNumber(serialNumber.matches("[0-9]*") ? new BigInteger(serialNumber) : null);
             document.setName(name);
             document.setDescription(description);
-            document.setUploadDate(new SimpleDateFormat().parse(uploadDate));
-            document.setCreationDate(new SimpleDateFormat().parse(creationDate));
+            document.setUploadDate(new SimpleDateFormat("yyyy-MM-dd").parse(uploadDate));
+            document.setCreationDate(new SimpleDateFormat("yyyy-MM-dd").parse(creationDate));
             document.setDocumentType(documentType);
             document.setDocumentSerie(documentalSerie);
             document.setDocumentRequest(documentRequest);
+
+            file = fileService.upload(multipartFile);
+
+            fileService.save(file);
+
+            document.setFile(file);
         } catch (ParseException e) {
 
+        } catch (IOException ioe) {
+
         }
+
         return documentService.save(document);
     }
 

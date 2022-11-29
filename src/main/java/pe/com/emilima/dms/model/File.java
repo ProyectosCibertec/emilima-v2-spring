@@ -13,8 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class File {
     @Id
-    @Column(name = "id", length = 48)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", length = 36)
     private String id;
     @Column(name = "filename")
     private String filename;

@@ -74,3 +74,4 @@ SELECT * FROM `document_type`;
 SELECT * FROM `documental_serie`;
 SELECT * FROM `document_request`;
 SELECT * FROM `organic_unit`;
+SELECT * FROM `document`;

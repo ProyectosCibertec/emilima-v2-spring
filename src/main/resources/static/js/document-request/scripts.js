@@ -1,35 +1,3 @@
-const URL = location.origin;
-
-function showDangerAlert(message) {
-    const container = document.createElement("div");
-    let alert = `
-        <div class="alert alert-danger appears-in-top-center text-center shadow-sm" role="alert">
-            ${message}
-        </div>
-	`
-    container.innerHTML = alert;
-    $('body').prepend(container);
-
-    setTimeout(function () {
-        container.remove();
-    }, 3000);
-}
-
-function showSuccessAlert(message) {
-    const container = document.createElement("div");
-    let alert = `
-        <div class="alert alert-success appears-in-top-center text-center shadow-sm" role="alert">
-            ${message}
-        </div>
-	`
-    container.innerHTML = alert;
-    $('body').prepend(container);
-
-    setTimeout(function () {
-        container.remove();
-    }, 3000);
-}
-
 function getDocumentRequests() {
     let out = $.ajax({ method: "GET", url: `${URL}/api/document-request/` });
 
@@ -158,7 +126,7 @@ function mapOrganicUnitInCombobox(organicUnit) {
 async function fillDocumentRequestForm(id) {
     let documentRequest = await getDocumentRequest(id);
 
-    let creationDate = documentRequest.creationDate.split('T')[0];
+    let creationDate = dateFormat(documentRequest.creationDate, "yyyy-MM-dd");
 
     $("#request-name").val(documentRequest.name);
     $("#request-description").val(documentRequest.description);
@@ -231,6 +199,12 @@ function searchRequestsInView() {
     	)
 }
 
+function openRegisterDocumentRequestModal() {
+	let currentDate = dateFormat(new Date(), "yyyy-MM-dd");
+
+	$("#request-creation-date").val(currentDate);
+}
+
 function index() {
     let saveButton = $("#save-button");
     let documentRequestForm = $("#documentRequestForm");
@@ -239,29 +213,28 @@ function index() {
     fillRequestStatesCombobox();
     fillOrganicUnitsCombobox();
 
-    /*documentRequestForm.validate({
+    documentRequestForm.validate({
         messages: {
-            "user-name": {
-                required: "Por favor, pon un nombre de usuario",
-                minlength: "Digita como mínimo 3 caracteres",
-                maxlength: "Digita como máximo 30 caracteres"
+            "request-name": {
+                required: "Por favor, pon un nombre de solicitud"
             },
-            "user-password": {
-                required: "Por favor, pon una contraseña"
+            "request-description": {
+                required: "Por favor, pon una descripción"
             },
-            "user-email": {
-                required: "Por favor, pon un email",
-                min: "La cantidad mínima es 1",
-                max: "La cantidad máxima es 10"
+            "request-creation-date": {
+
             },
-            "user-role": {
-                required: "Por favor, elige un rol"
+            "request-state": {
+                required: "Por favor, elige un estado"
             },
-            "user-position": {
-                required: "Por favor, pon una posición"
+            "request-user": {
+
+            },
+            "request-organic-unit": {
+                required: "Por favor, elige una unidad orgánica"
             }
         }
-    });*/
+    });
 
 	$("#search-document-request-name").keyup(function() {
 		searchRequestsInView();
@@ -283,7 +256,3 @@ function index() {
         removeDocumentRequestIdToUrl();
     });
 }
-
-$(document).ready(function () {
-    index();
-});

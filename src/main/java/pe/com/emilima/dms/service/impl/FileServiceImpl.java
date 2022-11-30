@@ -37,7 +37,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public Optional<File> findById(String id) {
-        if (StringUtils.hasText(id))
+        if (!StringUtils.hasText(id))
             return Optional.empty();
 
         return fileRepository.findById(id);

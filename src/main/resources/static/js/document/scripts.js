@@ -81,6 +81,38 @@ async function saveDocument() {
     fillDocumentsTable();
 }
 
+async function downloadDocument(id) {
+	let filename;
+
+	let result = await $.ajax({
+		url: `${URL}/file/download/${id}`, method: "GET", xhrFields: { responseType: 'arraybuffer' }, statusCode: {
+			200: function(data, status, xhr) {
+				filename = xhr.getResponseHeader('Content-Disposition');
+			}
+		}
+	});
+
+	return {
+		result: result,
+		filename: filename
+	};
+}
+
+async function downloadDocumentOperation(id) {
+	let file = await downloadDocument(id);
+	let link = document.createElement('a');
+	let blob = new Blob([file.result], { type: "application/pdf" });
+	let reader = new FileReader();
+
+	reader.readAsDataURL(blob);
+	reader.onload = function() {
+		link.href = reader.result;
+		link.download = file.filename.split('=')[1];
+		link.click();
+		link.remove();
+	}
+}
+
 function mapDocumentInGridItem(document) {
     return `
                         <div class="col-lg-6 documents-list__item">
@@ -101,7 +133,7 @@ function mapDocumentInGridItem(document) {
 													<i class="bi bi-x documents-list__item__delete-button" style="font-size: 1.5rem;" onclick='deleteDocumentFromList(${document.serialNumber})'></i>
 												</div>
 												<div class="col">
-													<i class="bi bi-download documents-list__item__download-button" style="font-size: 2.5rem;" onclick="downloadDocumentOperation('${document.fileId}')"></i>
+													<i class="bi bi-download documents-list__item__download-button" style="font-size: 2.5rem;" onclick="downloadDocumentOperation('${document.file.id}')"></i>
 												</div>
 											</div>
 										</div>

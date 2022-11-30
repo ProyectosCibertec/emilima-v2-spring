@@ -45,6 +45,7 @@
                     <div class="card-body">
                         <div th:if="${param.error}" class="alert alert-danger">Usuario o contraseña inválidos</div>
                         <div th:if="${param.logout}" class="alert alert-warning">Has cerrado sesión</div>
+                        
                         <form method="post" th:action="@{/login}" name="f">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Usuario: </label>

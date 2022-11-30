@@ -19,8 +19,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @EnableWebSecurity
 public class WebSecurityConfig {
-
     protected final Logger logger = Logger.getLogger(getClass().getName());
+    
     @Autowired
     private CustomAuthenticationProvider authProvider;
 
@@ -43,6 +43,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain publicResourcesFilterChain(HttpSecurity http) throws Exception {
         logger.log(Level.INFO, "Accessing to public resources...");
+
         http.
                 antMatcher("/public/**")
                 .authorizeHttpRequests(authorize -> authorize

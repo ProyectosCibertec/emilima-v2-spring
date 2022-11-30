@@ -1,5 +1,6 @@
 package pe.com.emilima.dms.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import pe.com.emilima.dms.model.Document;
 
 import java.math.BigInteger;

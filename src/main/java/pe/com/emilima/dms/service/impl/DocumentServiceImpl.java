@@ -2,6 +2,7 @@ package pe.com.emilima.dms.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import pe.com.emilima.dms.model.Document;
 import pe.com.emilima.dms.repository.DocumentRepository;
 import pe.com.emilima.dms.service.DocumentService;

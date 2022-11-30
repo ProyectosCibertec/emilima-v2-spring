@@ -1,35 +1,3 @@
-const URL = location.origin;
-
-function showDangerAlert(message) {
-    const container = document.createElement("div");
-    let alert = `
-        <div class="alert alert-danger appears-in-top-center text-center shadow-sm" role="alert">
-            ${message}
-        </div>
-	`
-    container.innerHTML = alert;
-    $('body').prepend(container);
-
-    setTimeout(function () {
-        container.remove();
-    }, 3000);
-}
-
-function showSuccessAlert(message) {
-    const container = document.createElement("div");
-    let alert = `
-        <div class="alert alert-success appears-in-top-center text-center shadow-sm" role="alert">
-            ${message}
-        </div>
-	`
-    container.innerHTML = alert;
-    $('body').prepend(container);
-
-    setTimeout(function () {
-        container.remove();
-    }, 3000);
-}
-
 function getDocumentalSeries() {
     let out = $.ajax({ method: "GET", url: `${URL}/api/documental-serie/` });
 
@@ -153,7 +121,7 @@ function mapUserInTableRow(documentalSerie) {
                     <td scope="col">${documentalSerie.documentalSerieValue}</td>
                     <td scope="col">${documentalSerie.yearsInManagementArchive}</td>
                     <td scope="col">${documentalSerie.yearsInCentralArchive}</td>
-                    <td scope="col">${documentalSerie.elaborationDate}</td>
+                    <td scope="col">${new Date(documentalSerie.elaborationDate)}</td>
                     <td scope="col">
                         <div class="d-flex justify-content-center align-items-center gap-2">
                             <button type="button" class="btn btn-warning" data-bs-dismiss="modal" onclick="editDocumentalSerieFromList('${documentalSerie.code}')" data-bs-toggle="modal" data-bs-target="#documentalSerieModal">Editar</button>
@@ -175,7 +143,7 @@ function mapOrganicUnitInCombobox(organicUnit) {
 async function filldocumentalSerieForm(id) {
     let documentalSerie = await getDocumentalSerie(id);
 
-    let elaborationDate = documentalSerie.elaborationDate.split('T')[0];
+    let elaborationDate = dateFormat(documentalSerie.elaborationDate, "yyyy-MM-dd");
 
     $("#documental-serie-code").val(documentalSerie.code);
     $("#documental-serie-name").val(documentalSerie.name);
@@ -263,29 +231,45 @@ function index() {
     fillHierarchicalDependenciesCombobox();
     fillOrganicUnitsCombobox();
 
-    /*documentalSerieForm.validate({
+    documentalSerieForm.validate({
         messages: {
-            "user-name": {
-                required: "Por favor, pon un nombre de usuario",
-                minlength: "Digita como mínimo 3 caracteres",
-                maxlength: "Digita como máximo 30 caracteres"
+            "documental-serie-code": {
+                required: "Por favor, pon un código"
             },
-            "user-password": {
-                required: "Por favor, pon una contraseña"
+            "documental-serie-name": {
+                required: "Por favor, pon un nombre"
             },
-            "user-email": {
-                required: "Por favor, pon un email",
-                min: "La cantidad mínima es 1",
-                max: "La cantidad máxima es 10"
+            "documental-serie-hierarchical-dependency": {
+                required: "Por favor, define una dependencia jerárquica"
             },
-            "user-role": {
-                required: "Por favor, elige un rol"
+            "documental-serie-organic-unit": {
+                required: "Por favor, define una unidad orgánica"
             },
-            "user-position": {
-                required: "Por favor, pon una posición"
+            "documental-serie-definition": {
+                required: "Por favor, pon una definición"
+            },
+            "documental-serie-normative-scope": {
+                required: "Por favor, pon un alcance normativo"
+            },
+            "documental-serie-service-frequency": {
+                required: "Por favor, pon una frecuencia de servicio"
+            },
+            "documental-serie-phisical-features": {
+                required: "Por favor, pon las características físicas"
+            },
+            "documental-serie-value": {
+                required: "Por favor, pon un valor",
+                minlength: "El mínimo de caracteres permitidos es 1",
+                maxlength: "El máximo de caracteres permitidos es 1"
+            },
+            "documental-serie-years-in-ma": {
+                required: "Por favor, pon una cantidad de años"
+            },
+            "documental-serie-years-in-ca": {
+                required: "Por favor, pon una cantidad de años"
             }
         }
-    });*/
+    });
 
 	$("#search-documental-serie-name").keyup(function() {
 		searchDocumentalSeriesInView();
@@ -307,7 +291,3 @@ function index() {
         removeDocumentalSerieIdToUrl();
     });
 }
-
-$(document).ready(function () {
-    index();
-});

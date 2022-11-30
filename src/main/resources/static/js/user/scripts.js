@@ -1,35 +1,3 @@
-const URL = location.origin;
-
-function showDangerAlert(message) {
-    const container = document.createElement("div");
-    let alert = `
-        <div class="alert alert-danger appears-in-top-center text-center shadow-sm" role="alert">
-            ${message}
-        </div>
-	`
-    container.innerHTML = alert;
-    $('body').prepend(container);
-
-    setTimeout(function () {
-        container.remove();
-    }, 3000);
-}
-
-function showSuccessAlert(message) {
-    const container = document.createElement("div");
-    let alert = `
-        <div class="alert alert-success appears-in-top-center text-center shadow-sm" role="alert">
-            ${message}
-        </div>
-	`
-    container.innerHTML = alert;
-    $('body').prepend(container);
-
-    setTimeout(function () {
-        container.remove();
-    }, 3000);
-}
-
 function getUsers() {
     let out = $.ajax({ method: "GET", url: `${URL}/api/user/` });
 
@@ -268,7 +236,3 @@ function index() {
         removeUserIdToUrl();
     })
 }
-
-$(document).ready(function () {
-    index();
-});

@@ -51,7 +51,7 @@ INSERT INTO `user_position`(`name`, `organic_unit_id`, `hierarchical_dependency_
 INSERT INTO `user_position`(`name`, `organic_unit_id`, `hierarchical_dependency_id`) VALUES ("GERENTE DE ATENCIÓN AL CIUDADANO, COMUNICACIONES Y TECNOLOGÍA DE LA INFORMACIÓN", 1, 1);
 INSERT INTO `user_position`(`name`, `organic_unit_id`, `hierarchical_dependency_id`) VALUES ("GERENTE DE ADMINISTRACIÓN Y FINANZAS", 1, 1);
 
-SELECT * FROM `user_role`;
+SELECT * FROM `documental_serie`;
 
 INSERT INTO `user`(`username`, `password`, `email`, `role_id`, `position_id`) VALUES ("admin", "admin", "admin@emilima.com.pe", 1, 1);
 INSERT INTO `user`(`username`, `password`, `email`, `role_id`, `position_id`) VALUES ("admin1", "admin", "admin@emilima.com.pe", 1, 1);
@@ -60,3 +60,18 @@ INSERT INTO `user`(`username`, `password`, `email`, `role_id`, `position_id`) VA
 INSERT INTO `document_request`(`name`, `description`, `creation_date`, `state_id`, `user_id`, `organic_unit_id`) VALUES ("Solicitud 1", "Descripción de la solicitud 1", "2000-11-11", 1, "admin", 1);
 INSERT INTO `document_request`(`name`, `description`, `creation_date`, `state_id`, `user_id`, `organic_unit_id`) VALUES ("Solicitud 2", "Descripción de la solicitud 2", "2000-11-11", 1, "admin", 1);
 INSERT INTO `document_request`(`name`, `description`, `creation_date`, `state_id`, `user_id`, `organic_unit_id`) VALUES ("Solicitud 3", "Descripción de la solicitud 3", "2000-11-11", 1, "admin", 1);
+
+INSERT INTO `document`(`name`, `description`, `upload_date`, `creation_date`, `file_id`, `document_type_id`, `document_serie_id`, `document_request_id`) VALUES ("Documento 1", "Descripción documento 1", "2022-12-12", "2022-12-12", "dca3a58c-ef10-11ec-8ea0-0242ac120002", 1, "asdf", 17);
+INSERT INTO `document`(`name`, `description`, `upload_date`, `creation_date`, `file_id`, `document_type_id`, `document_serie_id`, `document_request_id`) VALUES ("Documento 2", "Descripción documento 2", "2022-12-12", "2022-12-12", "dca3a58c-ef10-11ec-8ea0-0242ac120002", 1, "asdf", 18);
+INSERT INTO `document`(`name`, `description`, `upload_date`, `creation_date`, `file_id`, `document_type_id`, `document_serie_id`, `document_request_id`) VALUES ("Documento 3", "Descripción documento 3", "2022-12-12", "2022-12-12", "dca3a58c-ef10-11ec-8ea0-0242ac120002", 1, "asdf", 17);
+INSERT INTO `document`(`name`, `description`, `upload_date`, `creation_date`, `file_id`, `document_type_id`, `document_serie_id`, `document_request_id`) VALUES ("Documento 4", "Descripción documento 4", "2022-12-12", "2022-12-12", "dca3a58c-ef10-11ec-8ea0-0242ac120002", 1, "asdf", 18);
+
+SELECT * FROM `user_role`;
+SELECT * FROM `request_state`;
+SELECT * FROM `file`;
+SELECT * FROM `hierarchical_dependency`;
+SELECT * FROM `document_type`;
+SELECT * FROM `documental_serie`;
+SELECT * FROM `document_request`;
+SELECT * FROM `organic_unit`;
+SELECT * FROM `document`;

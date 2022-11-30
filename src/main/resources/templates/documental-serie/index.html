@@ -12,6 +12,12 @@ metadata=_)">
     <div class="col-md-9 py-5 main-content h-100">
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="fw-bold">Series Documentales</h1>
+            <form style="margin-left: auto; margin-right: 5px;" method="get" th:action="@{/api/documental-serie/report}">
+                <div>
+                    <input type="submit" class="form-control w-100 btn btn-warning"
+                           id="generate-report" value="Generar reporte">
+                </div>
+            </form>
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#documentalSerieModal">Registrar serie documental</button>
         </div>
         <form class="my-4">
